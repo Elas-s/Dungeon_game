@@ -1,5 +1,8 @@
 import random
 import messages
+import scores
+
+
 #-----------------------------------------------------
 
 def fight (inventory):
@@ -118,3 +121,8 @@ if health > 0:
     print("🏆 You escaped the dungeon with", gold, "gold!", name, "is a legend! (Your shoes are ruined though.)")
 else:
     print("💀 You have fallen... The monsters are using your gold to buy snacks. GAME OVER.")
+
+scores.save_score(name,gold,health > 0)
+scores.show_top_scores()
+print("Games played so far : ", scores.total_games())
+print("Average gold in all games :", round(scores.average_gold(),1))

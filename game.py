@@ -1,27 +1,37 @@
 import random
 import messages
 import scores
+import monsters
 
 
 #-----------------------------------------------------
 
-def fight (inventory):
-    damage_taken = random.randint(5, 30)
-    loot = random.randint(10, 40)
-    print(random.choice(messages.FIGHT_MESSAGES))
+
+#prints a random message with monster's name
+def say (message_list,monster):
+    text = random.choice(message_list)
+    print(text.replace("{monster}",monster["name"]))
+
+#fighting the monster
+def fight (inventory,monster):
+    damage_taken = random.randint(monster["min_damage"],monster["max_damage"])
+    loot = random.randint(monster["min_loot"],monster["max_loot"])
+    say(messages.FIGHT_MESSAGES,monster)
 
     if "shield" in inventory:
         damage_taken -= 5
-        print("You are taking less damage because of your shield")
+        print("You are taking less damage because of your shield. \n")
 
-    print("You lose", damage_taken, "health, but find", loot, "gold.")
+    print("The", monster["name"], "hits you for", damage_taken, "damage, but you find", loot, "gold. \n")
 
     if random.randint(1, 3) == 1:
         inventory.append("potion")
-        print(random.choice(messages.POTION_FOUND_MESSAGES))
+        say(messages.POTION_FOUND_MESSAGES,monster)
 
     return damage_taken, loot
 
+
+#asking questions and getting desired answers
 def ask(question , options):
     answer = input(question).lower()
     while answer not in options:
@@ -29,22 +39,27 @@ def ask(question , options):
         answer = input(question).lower()
     return answer
 
-
+#showing stats of player
 def show_stats(health, gold, inventory):
     if health < 0 :
         health = 0
 
-    print("❤️ Health:", health, "| 💰 Gold:", gold, "| 🎒 Inventory:", inventory)
+    print("❤️ Health:", health, "| 💰 Gold:", gold, "| 🎒 Inventory:", inventory, "\n")
 
 
+#-------------------------------------------------------
 
-print ("Welcome to the dungeon!")
+#-----------Welcome player-------------
+
+print ("Welcome to the dungeon! \n")
 name = input ("What is your name, brave (or foolish) adventurer?   ")
 health = 100
 gold = 0
 inventory = []
 print("Good luck,", name + ". You're going to need it. Like, a LOT of it.\n")
 show_stats(health, gold, inventory)
+
+#-----------Entrance-------------
 
 
 print("\n --- ENTRANCE---")
@@ -63,16 +78,20 @@ elif choice == "straight":
     health += 20
     inventory.append("sword")
     inventory.append("shield")
-else:
-    print("You stand still, confused. A bat flies by and judges you silently. \n")
 
 show_stats(health, gold, inventory)
+
+#----------------Rooms-----------
 
 print ("You keep going and find only one door, you open it and find yourself in a room. \n")
 room = 1
 while health > 0 and room <= 5:
     print("\n --- Room", room, "---")
-    action = ask("A monster appears! FIGHT or SNEAK?    ", ["fight", "sneak"])
+
+    monster = random.choice(monsters.MONSTERS)
+    print(monster["intro"])
+
+    action = input("Do you FIGHT the " + monster["name"] + " or SNEAK?    ").lower()
 
     if action == "fight":
         print("You have", inventory.count("potion"), "potions")
@@ -87,34 +106,37 @@ while health > 0 and room <= 5:
                 print("Saving it for later? Bold strategy. Let's see if it pays off.")
 
         else:
-            print(random.choice(messages.NO_POTION_MESSAGES))
+            say(messages.NO_POTION_MESSAGES,monster)
 
-        damage_taken, loot = fight(inventory)
+        damage_taken, loot = fight(inventory,monster)
         health -= damage_taken
         gold += loot
-
-
 
     elif action == "sneak":
         result = random.randint(1,3)
         if result == 1:
-            print(random.choice(messages.SNEAK_SAFE_MESSAGES))
+            say(messages.SNEAK_SAFE_MESSAGES,monster)
         elif result == 2:
-            print(random.choice(messages.SNEAK_NOISE_MESSAGES), "-5 health from pure stress.")
+            say(messages.SNEAK_NOISE_MESSAGES, monster)
+            print("-5 health from pure stress.")
             health -= 5
         elif result == 3:
-            print(random.choice(messages.SNEAK_CAUGHT_MESSAGES))
+            say(messages.SNEAK_CAUGHT_MESSAGES,monster)
 
-            damage_taken, loot = fight(inventory)
+            damage_taken, loot = fight(inventory,monster)
             health -= damage_taken
             gold += loot
 
     else:
-        print(random.choice(messages.HESITATE_MESSAGES), "-15 health")
+        say(messages.HESITATE_MESSAGES, monster)
+        print("-15 health")
         health -= 15
 
     show_stats(health, gold, inventory)
     room += 1
+
+
+#------Game Over-----
 
 print()
 if health > 0:

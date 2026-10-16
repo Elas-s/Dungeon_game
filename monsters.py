@@ -29,7 +29,7 @@ MONSTERS = [
     },
 
     {
-        "name": "The Mimic", "health": 30,
+        "name": "Mimic", "health": 30,
         "min_damage": 2, "max_damage": 5,
         "min_loot": 30, "max_loot": 90,
         "intro": "A beautiful treasure chest sits in the corner. "

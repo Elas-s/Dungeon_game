@@ -1,4 +1,4 @@
-
+![Tests](https://github.com/Elas-s/Dungeon_game/actions/workflows/tests.yml/badge.svg)
 # 🏰 Dungeon Game
 
 A funny text adventure game written in Python. Explore a dungeon, fight (or sneak past) monsters, collect gold and potions, and try to escape alive... ideally with your pants intact.

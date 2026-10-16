@@ -8,7 +8,7 @@ A funny text adventure game written in Python. Explore a dungeon, fight (or snea
 ### 🚪 The entrance
 You stand before three doors. One smells funky. Pick one:
 
-- **LEFT**: a goblin jumps out and slaps you with a half-eaten fish 🐟 (-20 health)
+- **LEFT**: a goblin jumps out and slaps you with a half-eaten fish 🐟 (-10 health)
 - **RIGHT**: a treasure chest with 50 gold and a potion ✨
 - **STRAIGHT**: a sword and a shield ⚔️. The sword makes your hits stronger, the shield blocks 5 damage from every hit
 

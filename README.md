@@ -12,6 +12,8 @@ You stand before three doors. One smells funky. Pick one:
 - **RIGHT**: a treasure chest with 50 gold and a potion ✨
 - **STRAIGHT**: a sword and a shield ⚔️. The sword makes your hits stronger, the shield blocks 5 damage from every hit
 
+You start with **100 health**, and that's also the maximum.
+
 ### 👹 The rooms
 Then you go through **5 rooms**, each with a random monster:
 
@@ -32,7 +34,7 @@ Then you go through **5 rooms**, each with a random monster:
 
 In every room you choose:
 
-- **FIGHT**: a turn-based battle. Your first hit is automatic, then each turn you **ATTACK**, drink a **POTION** (+30 health), or try to **RUN**. You can only run mid-fight if your health is low or the monster is still strong. No running from a nearly dead Goblin!
+- **FIGHT**: a turn-based battle. Your first hit is automatic, then each turn you **ATTACK**, drink a **POTION** (+30 health, up to your max of 100), or try to **RUN**. You can only run mid-fight if your health is low or the monster is still strong. No running from a nearly dead Goblin!
 - **SNEAK**: slip past safely, make a noise from pure stress (-5 health)... or get caught and have to fight 👀
 - **RUN**: a 50/50 chance. Fail, and you slip on absolutely nothing and the fight starts anyway 🍌
 - **Anything else**: you hesitate, and the monster bites you for being weird (-15 health)
@@ -54,6 +56,15 @@ cd Dungeon_game
 python game.py
 ```
 
+## 🧪 Running the tests
+
+```bash
+pip install pytest
+pytest
+```
+
+The tests also run automatically on GitHub every time I push (see the badge at the top).
+
 ## 📁 Project structure
 
 | File | What it does |
@@ -63,6 +74,8 @@ python game.py
 | `monsters.py` | All the monsters, with their health, damage and loot |
 | `messages.py` | All the funny random messages |
 | `scores.py` | Saves and loads high scores with SQLite |
+| `test_player.py` | Automated tests for the `Player` class |
+| `.github/workflows/tests.yml` | Runs the tests on GitHub on every push |
 
 ## 🛠️ What I practised building this
 
@@ -76,10 +89,12 @@ python game.py
 - Input validation: the game keeps asking until you give a valid answer
 - Randomness with the `random` module
 - Debugging step by step
+- **Automated testing with pytest**, including test-driven development (red, green, refactor)
+- **Continuous integration** with GitHub Actions
 - Git and GitHub, with [Conventional Commits](https://www.conventionalcommits.org/)
 
 ## 🚀 Coming next
 
-- Automated tests with pytest
-- GitHub Actions to run the tests on every push
+- More tests (fights and player choices)
+- More SQL: new Hall of Fame stats
 - A version with clickable buttons instead of typing

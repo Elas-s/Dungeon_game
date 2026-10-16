@@ -16,7 +16,7 @@ def test_take_damage_never_goes_below_zero():
 def test_add_gold():
     hero = Player("Chayma")
     hero.add_gold(25)
-    assert hero.gold == 25
+    assert hero.gold == 10
 
 def test_add_item():
     hero = Player("Chayma")

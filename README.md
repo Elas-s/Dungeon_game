@@ -1,3 +1,4 @@
+
 # 🏰 Dungeon Game
 
 A funny text adventure game written in Python. Explore a dungeon, fight (or sneak past) monsters, collect gold and potions, and try to escape alive... ideally with your pants intact.
@@ -20,7 +21,7 @@ Then you go through **5 rooms**, each with a random monster:
 | Sleep-Deprived Wizard | 20 | Three empty coffee cups. *"I cast... wait, what was I doing?"* |
 | Skeleton | 24 | Hasn't had a decent meal in 400 years |
 | Zombie | 28 | Looks exhausted. Honestly, same |
-| The Mimic | 30 | A beautiful treasure chest. It has teeth. OH NO |
+| Mimic | 30 | A beautiful treasure chest. It has teeth. OH NO |
 | Troll | 30 | Smells like old cheese and bad decisions (so *that's* the funky smell!) |
 | Werewolf | 30 | Howls at the moon. It's indoors. There is no moon |
 | Vampire | 30 | Cape flowing dramatically. It practised that entrance |

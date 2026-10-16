@@ -25,8 +25,9 @@ def test_add_item():
 
 def test_heal_adds_health():
     hero = Player("Chayma")
-    hero.heal(30)
-    assert hero.health == 130
+    hero.take_damage(50)
+    hero.heal(10)
+    assert hero.health == 60
 
 def test_is_alive_false_at_zero_health():
     hero = Player("Chayma")
@@ -54,6 +55,11 @@ def test_drink_potion_heals_and_uses_it_up():
     assert  hero.health == 80
     assert hero.potion_count() == 0
 
+def test_heal_never_goes_above_100():
+    hero = Player("Chayma")
+    hero.take_damage(10)
+    hero.heal(30)
+    assert hero.health == 100
 
 
 

@@ -1,7 +1,8 @@
+MAX_HEALTH = 100
 class Player:
     def __init__(self, name):
         self.name = name
-        self.health = 100
+        self.health = MAX_HEALTH
         self.gold = 0
         self.inventory = []
 
@@ -18,7 +19,7 @@ class Player:
         self.health = max(self.health - amount, 0)
 
     def heal(self, amount):
-        self.health += amount
+        self.health = min(self.health + amount, MAX_HEALTH)
 
     def is_alive(self):
         return self.health > 0

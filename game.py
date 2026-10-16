@@ -120,15 +120,14 @@ def main():
     choice = ask("Do you wish to go LEFT, RIGHT or STRAIGHT?  ", ["left", "right", "straight"])
     print()
     if choice == "left":
-        print("A goblin jumps out and slaps you with a half eaten fish! -20 health")
-        hero.take_damage(20)
+        print("A goblin jumps out and slaps you with a half eaten fish! -10 health")
+        hero.take_damage(10)
     elif choice == "right":
         print("A treasure chest! Inside: 50 gold and a potion. Today is your day! ✨")
         hero.add_gold(50)
         hero.add_item("potion")
     elif choice == "straight":
-        print("You find a sword and a shield! You feel like you won in life. +20 health ⚔️")
-        hero.heal(20)
+        print("You find a sword and a shield! You feel like you won in life.")
         hero.add_item("sword")
         hero.add_item("shield")
 

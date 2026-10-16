@@ -10,7 +10,7 @@ You stand before three doors. One smells funky. Pick one:
 
 - **LEFT**: a goblin jumps out and slaps you with a half-eaten fish 🐟 (-20 health)
 - **RIGHT**: a treasure chest with 50 gold and a potion ✨
-- **STRAIGHT**: a sword and a shield ⚔️ (+20 health). The sword makes your hits stronger, the shield blocks 5 damage from every hit
+- **STRAIGHT**: a sword and a shield ⚔️. The sword makes your hits stronger, the shield blocks 5 damage from every hit
 
 ### 👹 The rooms
 Then you go through **5 rooms**, each with a random monster:

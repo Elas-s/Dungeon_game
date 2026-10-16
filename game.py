@@ -58,8 +58,13 @@ def fight(hero, monster):
             print(f"   🎯 You hit the {monster['name']} for {player_hit}!   ({monster['name']}: {max(monster_hp, 0)} HP left)")
 
         elif move == "potion":
+            before = hero.health
             if hero.drink_potion():
-                print(f"   🧪 Glug glug glug... +30 health!   (You: {hero.health} HP)")
+                healed = hero.health - before
+                if healed == 0:
+                    print("   🧃 Delicious. Useless, but delicious.")
+                else:
+                    print(f"   🧪 Glug glug glug... +{healed} health!   (You: {hero.health} HP)")
             else:
                 say(messages.NO_POTION_MESSAGES, monster)
                 print("   You wasted your turn looking for a potion you don't have.")
@@ -152,8 +157,13 @@ def main():
                 print(f"🧪 You have {hero.potion_count()} potion(s) in your inventory.")
                 answer = ask("Do you wish to drink a potion before the fight? (yes/no)  ", ["yes", "no"])
                 if answer == "yes":
+                    before = hero.health
                     hero.drink_potion()
-                    print("🧪 You drink a potion and feel stronger, grrr!! +30 health 💪")
+                    healed = hero.health - before
+                    if healed == 0:
+                        print("🥤 You were already at full health. That potion was just a very expensive drink.")
+                    else:
+                        print(f"🧪 You drink a potion and feel stronger, grrr!! +{healed} health! 💪")
                 else:
                     print("Saving it for later? Bold strategy.")
             else:

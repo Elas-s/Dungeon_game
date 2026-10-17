@@ -24,3 +24,11 @@ def average_gold():
     average = connection.execute("SELECT AVG(gold) FROM scores").fetchone()[0]
     connection.close()
     return average
+
+#---------------- New hall of Fame--------------
+
+def most_active_player():
+    connection = sqlite3.connect("scores.db")
+    top_played = connection.execute("SELECT LOWER(name) AS player, COUNT(*) AS games FROM scores GROUP BY player ORDER BY games DESC LIMIT 1").fetchone()
+    connection.close()
+    return top_played

@@ -211,9 +211,15 @@ def main():
 
     scores.save_score(hero.name, hero.gold, hero.is_alive())
     scores.show_top_scores()
+    top_name, top_games = scores.most_active_player()
+
     print()
     print(f"🎮 Games played so far: {scores.total_games()}")
+
+    print(f"🎖️ Most games played: {top_name.title()} ({top_games} games)")
+
     print(f"💰 Average gold in all games: {round(scores.average_gold(), 1)}")
+
 
 #-------------------------------------------------------
 

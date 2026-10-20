@@ -42,7 +42,7 @@ In every room you choose:
 Beaten monsters drop gold, and sometimes a potion. Before a fight, you can also drink a potion if you have one.
 
 ### 🏆 The end
-Survive all 5 rooms to escape with your gold! Your score is saved, and the **Hall of Fame** shows the top 5 escapes, how many games have been played and the average gold.
+Survive all 5 rooms to escape with your gold! Your score is saved, and the **Hall of Fame** shows the top 5 escapes, how many games have been played, the average gold and the most active player.
 
 There are over 50 random funny messages, so no two games are the same.
 
@@ -54,6 +54,30 @@ You need [Python 3](https://www.python.org/downloads/) installed.
 git clone https://github.com/Elas-s/Dungeon_game.git
 cd Dungeon_game
 python game.py
+```
+
+## 🌐 The API
+
+The game also has a **REST API** built with [FastAPI](https://fastapi.tiangolo.com/), so other programs (like a web page) can read the scores as JSON.
+
+This project uses [uv](https://docs.astral.sh/uv/). Start the API with:
+
+```bash
+uv run uvicorn api:app --reload
+```
+
+Then open http://127.0.0.1:8000/docs to try every endpoint in your browser.
+
+| Endpoint | What it returns |
+|---|---|
+| `GET /` | A welcome message |
+| `GET /scores` | The top 5 escapes, with name and gold |
+| `GET /stats` | Games played, average gold and the most active player |
+
+Example answer from `GET /stats`:
+
+```json
+{"games": 13, "average_gold": 104.9, "most_active": {"name": "Elass", "games": 5}}
 ```
 
 ## 🧪 Running the tests
@@ -74,6 +98,7 @@ The tests also run automatically on GitHub every time I push (see the badge at t
 | `monsters.py` | All the monsters, with their health, damage and loot |
 | `messages.py` | All the funny random messages |
 | `scores.py` | Saves and loads high scores with SQLite |
+| `api.py` | The FastAPI app with the `/scores` and `/stats` endpoints |
 | `test_player.py` | Automated tests for the `Player` class |
 | `.github/workflows/tests.yml` | Runs the tests on GitHub on every push |
 
@@ -84,7 +109,8 @@ The tests also run automatically on GitHub every time I push (see the badge at t
 - **Object-oriented programming**: a `Player` class with its own methods (`take_damage()`, `heal()`, `drink_potion()`...)
 - Lists and **dictionaries** (each monster is a dictionary)
 - Splitting code into **modules** (separate files that import each other)
-- **SQL with SQLite**: saving scores, Hall of Fame (`ORDER BY`, `LIMIT`), total games (`COUNT`) and average gold (`AVG`)
+- **SQL with SQLite**: saving scores, Hall of Fame (`ORDER BY`, `LIMIT`), total games (`COUNT`), average gold (`AVG`) and most active player (`GROUP BY`, `LOWER`)
+- A **REST API** with FastAPI: JSON endpoints and automatic `/docs`
 - f-strings for clean output
 - Input validation: the game keeps asking until you give a valid answer
 - Randomness with the `random` module
@@ -95,6 +121,6 @@ The tests also run automatically on GitHub every time I push (see the badge at t
 
 ## 🚀 Coming next
 
-- More tests (fights and player choices)
-- More SQL: new Hall of Fame stats
-- A version with clickable buttons instead of typing
+- Saving scores through the API (`POST /scores`) and API tests
+- Running everything with **Docker**
+- A web page to see the Hall of Fame and play the game in the browser

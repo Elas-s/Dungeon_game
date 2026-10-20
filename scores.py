@@ -1,8 +1,13 @@
 import sqlite3
 
-def save_score(name, gold, survived):
+def create_table():
     connection = sqlite3.connect("scores.db")
-    connection.execute("CREATE TABLE IF NOT EXISTS scores (name TEXT, gold INTEGER, survived INTEGER)")
+    connection.execute("CREATE TABLE if NOT EXISTS scores(name TEXT, gold INTEGER, survived INTEGER)")
+    connection.close()
+
+def save_score(name, gold, survived):
+    create_table()
+    connection = sqlite3.connect("scores.db")
     connection.execute("INSERT INTO scores (name,gold,survived) VALUES (?,?,?)", (name,gold,survived))
     connection.commit()
     connection.close()
@@ -24,6 +29,7 @@ def total_games():
     total =connection.execute("SELECT COUNT(*) FROM scores").fetchone()[0]
     connection.close()
     return total
+
 def average_gold():
     connection = sqlite3.connect("scores.db")
     average = connection.execute("SELECT AVG(gold) FROM scores").fetchone()[0]

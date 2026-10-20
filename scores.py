@@ -7,13 +7,18 @@ def save_score(name, gold, survived):
     connection.commit()
     connection.close()
 
-def show_top_scores():
+def top_scores():
     connection = sqlite3.connect("scores.db")
-    rows = connection.execute("SELECT name, gold FROM scores Where survived =1 ORDER BY gold DESC LIMIT 5").fetchall()
+    rows = connection.execute("SELECT name, gold FROM scores WHERE survived = 1 ORDER BY gold DESC LIMIT 5").fetchall()
     connection.close()
+    return rows
+
+def show_top_scores():
+    rows = top_scores()
     print("\n🏆 HALL OF FAME 🏆")
     for name, gold in rows:
         print(name, "-", gold, "gold")
+
 def total_games():
     connection = sqlite3.connect("scores.db")
     total =connection.execute("SELECT COUNT(*) FROM scores").fetchone()[0]

@@ -1,11 +1,12 @@
 import random
+
+import ai
 import messages
 import scores
 import monsters
 #-----------------------------------------------------
 
 from player import Player
-
 #-----------------------------------------------------
 
 
@@ -96,6 +97,27 @@ def fight(hero, monster):
     else:
         print(f"💀 The {monster['name']} wins... You fought bravely. Not well, but bravely.")
 
+# Monsters can talk too
+
+def talk(hero, monster):
+    print(f"You have three chances to convince the {monster['name']}.")
+    chat = [{"role": "system", "content": ai.build_prompt(monster)}]
+    for turn in range(3):
+        text = input("🗣️  You say: ")
+        chat.append({"role": "user", "content": text})
+        reply = ai.monster_reply(chat)
+        chat.append({"role": "assistant", "content": reply})
+        print(f"   {monster['name']}: {ai.clean_reply(reply)}\n")
+        tag = ai.read_tag(reply)
+        if tag == "pass":
+            print("✨ The monster steps aside. Smooth talker!")
+            return True
+        if tag == "fight":
+            print("💢 Wrong thing to say...")
+            return False
+    print(f"😴 The {monster['name']} got bored of you.")
+    return False
+
 
 #asking questions and getting desired answers
 def ask(question, options):
@@ -149,7 +171,7 @@ def main():
         print(monster["intro"])
         print()
 
-        action = input(f"Do you FIGHT the {monster['name']}, SNEAK, or RUN?  ").lower()
+        action = input(f"Do you FIGHT the {monster['name']}, SNEAK, TALK, or RUN?  ").lower()
         print()
 
         if action == "fight":
@@ -182,6 +204,11 @@ def main():
                 hero.take_damage(5)
             elif result == 3:
                 say(messages.SNEAK_CAUGHT_MESSAGES, monster)
+                fight(hero, monster)
+
+
+        elif action == "talk":
+            if not talk(hero, monster):
                 fight(hero, monster)
 
         elif action == "run":

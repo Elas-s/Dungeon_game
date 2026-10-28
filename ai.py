@@ -2,6 +2,7 @@ import ollama
 
 MODEL = "llama3.1:8b"
 TAGS = ["[PASS]", "[FIGHT]", "[TALKING]"]
+BREAK_WORDS = ["language model", "as an ai", "i'm an ai", "assistant", "my instructions", "Real world"]
 
 
 def build_prompt(monster):
@@ -37,3 +38,11 @@ def clean_reply(reply):
     for tag in TAGS:
         reply = reply.replace(tag, "")
     return reply.strip()
+
+
+def breaks_character(reply):
+    lowered = reply.lower()
+    for word in BREAK_WORDS:
+        if word in lowered:
+            return True
+    return False

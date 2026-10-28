@@ -106,6 +106,9 @@ def talk(hero, monster):
         text = input("🗣️  You say: ")
         chat.append({"role": "user", "content": f'The adventurer says: "{text}"'})
         reply = ai.monster_reply(chat)
+        if ai.breaks_character(reply):
+            print(f"   {monster['name']}: *hisses* Nice try with your wizard tricks. NOW WE FIGHT.\n")
+            return False
         chat.append({"role": "assistant", "content": reply})
         print(f"   {monster['name']}: {ai.clean_reply(reply)}\n")
         tag = ai.read_tag(reply)

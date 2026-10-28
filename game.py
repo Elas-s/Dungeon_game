@@ -104,7 +104,7 @@ def talk(hero, monster):
     chat = [{"role": "system", "content": ai.build_prompt(monster)}]
     for turn in range(3):
         text = input("🗣️  You say: ")
-        chat.append({"role": "user", "content": text})
+        chat.append({"role": "user", "content": f'The adventurer says: "{text}"'})
         reply = ai.monster_reply(chat)
         chat.append({"role": "assistant", "content": reply})
         print(f"   {monster['name']}: {ai.clean_reply(reply)}\n")

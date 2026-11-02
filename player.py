@@ -40,3 +40,17 @@ class Player:
             return True
         else:
             return False
+
+    def spend_gold(self,amount):
+        if self.gold >= amount:
+            self.gold -= amount
+            return True
+        else:
+            return False
+
+    def remove_item(self, item):
+        if item in self.inventory:
+            self.inventory.remove(item)
+            return True
+        else:
+            return False

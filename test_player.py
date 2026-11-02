@@ -61,6 +61,23 @@ def test_heal_never_goes_above_100():
     hero.heal(30)
     assert hero.health == 100
 
+def test_spend_gold():
+    hero = Player("Chayma")
+    hero.add_gold(30)
+    assert hero.spend_gold(20) == True
+    assert hero.gold == 10
+
+def test_cannot_spend_more_gold_than_in_inventory():
+    hero = Player("Chayma")
+    hero.add_gold(20)
+    assert hero.spend_gold(10) == True
+    assert hero.gold == 10
+
+def test_remove_item():
+    hero = Player("Chayma")
+    hero.add_item("stinky cheese")
+    assert hero.remove_item("stinky cheese") == True
+    assert hero.inventory == []
 
 
 

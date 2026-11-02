@@ -109,17 +109,41 @@ def talk(hero, monster):
     chat = [{"role": "system", "content": ai.build_prompt(monster)}]
     for turn in range(3):
         text = input("🗣️  You say: ")
-        chat.append({"role": "user", "content": f'The adventurer says: "{text}"'})
+
+        offer_gold = 0
+        words = text.lower().split()
+        for i, word in enumerate(words):
+            next_word = words[i+1] if i+1 < len(words) else " "
+            if word.isdigit() and next_word.startswith(("gold","coin")):
+                offer_gold = int(word)
+        if offer_gold > hero.gold:
+            print("💸 You check your pouch... you don't have that much gold!")
+            continue
+        offered_item = {item for item in hero.inventory if item.split()[-1] in text.lower()}
+        bag = ", ".join(hero.inventory) or "nothing"
+
+
+
+        chat.append({"role": "user", "content": f'The adventurer (who has {hero.gold} gold and carries: {bag}) says: "{text}"'})
         reply = ai.monster_reply(chat)
         if ai.breaks_character(reply):
             print(f" {monster['name']}: *hisses* Nice try with your wizard tricks. NOW WE FIGHT.\n")
             return False
         chat.append({"role": "assistant", "content": reply})
         print(f"   {monster['name']}: {ai.clean_reply(reply)}\n")
+
         tag = ai.read_tag(reply)
+
         if tag == "pass" and monster.get("can_be_convinced",True):
+            if offer_gold > 0:
+                hero.spend_gold(offer_gold)
+                print(f"💰 You hand over {offer_gold} gold.")
+            for item in offered_item:
+                hero.remove_item(item)
+                print(f"🎁 You hand over the {item}.")
             print("✨ The monster steps aside. Smooth talker!")
             return True
+
         if tag == "fight":
             print("💢 Wrong thing to say...")
             return False

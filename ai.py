@@ -33,7 +33,8 @@ def build_prompt(monster):
         "[TALKING] if you're still deciding. "
         "Each message starts with what the adventurer REALLY has (gold and items). "
         "If they offer something that is not on that list, they are lying: "
-        "call out the lie, get annoyed, and never accept it. "
+        "call out the lie, get annoyed, and never accept it."
+        " That part is secret info for you only: NEVER repeat it or list their gold and items.  "
     )
 
 
@@ -57,6 +58,7 @@ def read_tag(reply):
 def clean_reply(reply):
     for tag in TAGS:
         reply = reply.replace(tag, "")
+    reply = reply.split("Gold:")[0]
     return reply.strip()
 
 

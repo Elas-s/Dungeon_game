@@ -91,6 +91,10 @@ def fight(hero, monster):
         print(f"🏆 The {monster['name']} is defeated! You loot {loot} gold.")
         hero.add_gold(loot)
 
+        if "drop" in monster:
+            hero.add_item(monster["drop"])
+            print(f"🎒 You also find a {monster['drop']}! Maybe someone wants it...Oh I see, you already looted everything")
+
         if random.randint(1, 3) == 1:
             hero.add_item("potion")
             say(messages.POTION_FOUND_MESSAGES, monster)

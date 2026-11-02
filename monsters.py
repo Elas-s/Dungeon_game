@@ -1,4 +1,3 @@
-
 MONSTERS = [
     {"name": "Goblin","health": 20,
      "min_damage": 3, "max_damage": 6,
@@ -7,6 +6,7 @@ MONSTERS = [
      "personality":"greedy, talks fast, obsessed with sandwiches",
      "wants": "at least 20 gold, or a really good sandwich recipe",
      "hint": "You notice sandwich crumbs everywhere. The goblin keeps glancing at your pockets and muttering something about gold.",
+     "drop": "half-eaten sandwich",
      "can_be_convinced": True},
 
     {
@@ -18,6 +18,7 @@ MONSTERS = [
         "personality":"very tired and hallucinates, really need some sleep but is addicted to this potion that keeps him awake",
         "wants": "some good coffee, someone to sing a lullaby for him to sleep, or ideas for potions and wizard stuff",
         "hint": "Three empty coffee cups lie beside a book of potions. The wizard keeps yawning and mumbling about a spell he can't finish.",
+        "drop": "warm wizard robe",
         "can_be_convinced": True
     },
 
@@ -28,8 +29,9 @@ MONSTERS = [
         "intro": "A skeleton rattles toward you. It looks like "
                  "it hasn't had a decent meal in 400 years.",
         "personality":"shivers and stutters when talking, is cold and hungry and wants to carry his eyeballs with him",
-        "wants": "a jacket, some food or a safe place to keep his eyeballs in or if someone fixes them for him",
+        "wants": "something warm to wear or drink, or some food or a safe place to keep his eyeballs in or if someone fixes them for him",
         "hint": "The skeleton is shivering despite having no skin. It keeps fumbling with its loose eyeballs and staring longingly at your supplies.",
+        "drop": "rattly bone",
         "can_be_convinced": True
     },
 
@@ -42,6 +44,7 @@ MONSTERS = [
         "personality": "bored to death (literally), slow, groans between words and loves gossip",
         "wants": "juicy drama from the other rooms, a good joke, or a brain snack (a cauliflower also works)",
         "hint": "The zombie perks up whenever it overhears a conversation from another room. It seems strangely excited about something it calls 'the latest drama.'",
+        "drop": "torn love letter",
         "can_be_convinced": True
     },
 
@@ -54,6 +57,7 @@ MONSTERS = [
         "personality": "a hungry treasure chest that clacks its lid, pretends to be a normal chest and is offended when people call it furniture",
         "wants": "at least 15 shiny coins to eat, or someone to admit it is the most beautiful chest in the dungeon",
         "hint": "The treasure chest keeps opening its lid just enough to show off its shiny teeth. It seems offended when you look at the coins inside instead of admiring it.",
+        "drop": "golden goblet",
         "can_be_convinced": True
     },
 
@@ -64,6 +68,7 @@ MONSTERS = [
      "personality": "big and grumpy on the outside but secretly sweet, very insecure about how he smells",
      "wants": "a compliment that will make him more confident",
      "hint": "You notice three tiny perfume bottles beside the troll. All empty. He keeps sniffing his sleeve and looking rather embarrassed.",
+     "drop": "stinky cheese",
      "can_be_convinced": True},
 
     {
@@ -75,6 +80,7 @@ MONSTERS = [
         "personality": "dramatic teenager energy, always hungry, howls when emotional and is embarrassed there is no moon",
         "wants": "a snack (a potion counts), someone to pretend the ceiling is the moon, or a belly rub",
         "hint": "The werewolf keeps looking up at the ceiling, whining about the missing moon. Its stomach growls loudly and looks like he is bored.",
+        "drop": "glowing moonstone",
         "can_be_convinced": True
     },
 
@@ -87,6 +93,7 @@ MONSTERS = [
         "personality": "theatrical and elegant, calls everyone darling, lives for gossip and scandal",
         "wants": "scandalous drama from the other rooms, praise for its dramatic entrance, or a fashion compliment about its cape",
         "hint": "The vampire keeps adjusting its cape in a cracked mirror. It perks up at the sound of distant gossip and seems to be waiting for someone to notice its entrance.",
+        "drop": "silk cape",
         "can_be_convinced": True
     },
 
@@ -99,6 +106,7 @@ MONSTERS = [
         "personality": "simple and polite, talks about himself in third person, always snacking",
         "wants": "food or a potion, or someone to help him get the sword out of his teeth",
         "hint": "The ogre is trying to dislodge a sword stuck between his teeth. A half-eaten snack sits on his chair, and he looks rather frustrated.",
+        "drop": "sword",
         "can_be_convinced": True
     },
 
@@ -109,6 +117,7 @@ MONSTERS = [
      "personality": "proud and ancient hoarder, counts every coin twice, loves to be admired",
      "wants": "at least 50 gold for its hoard, or a very rare treasure, or someone to bow and admire its scales",
      "hint": "The dragon guards a mountain of gold, counting the coins repeatedly. It keeps spreading its wings whenever it catches you looking at its scales.",
+     "drop": "shiny dragon scale",
      "can_be_convinced": True},
 
     {"name": "Karen","health": 35,
@@ -118,6 +127,7 @@ MONSTERS = [
      "personality": "rude and entitled, always wants to speak to the dungeon manager, complains about everything",
      "wants": "nothing, she just wants to complain and will never let anyone pass",
      "hint": "The woman is holding a complaint form, three more complaint forms, and a sign reading 'I DEMAND TO SPEAK TO THE MANAGER.' She doesn't appear interested in negotiation.",
+     "drop": "crumpled complaint form",
      "can_be_convinced": False},
 
     {
@@ -129,6 +139,7 @@ MONSTERS = [
         "personality": "bored and unimpressed, crossed nine circles of fire to get here and thinks you are a waste of its time",
         "wants": "nothing, it came here to fight and will never let anyone pass",
         "hint": "The demon's claws are already glowing with dark energy. It ignores your belongings and pleasantries, staring directly at you with a look that says it came here for one reason.",
+        "drop": "glowing ember",
         "can_be_convinced": False
     },
 

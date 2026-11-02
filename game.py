@@ -196,10 +196,11 @@ def main():
 
     print("\nYou keep going and find only one door. You open it and find yourself in a room...")
     room = 1
+    run_monsters = random.sample(monsters.MONSTERS, 5)
     while hero.is_alive() and room <= 5:
         title(f"ROOM {room} of 5")
 
-        monster = random.choice(monsters.MONSTERS)
+        monster = run_monsters[room - 1]
         print(monster["intro"])
         print()
 

@@ -42,7 +42,7 @@ MONSTERS = [
         "intro": "A zombie drags itself out of the darkness. "
                  "It looks exhausted. Honestly, same.",
         "personality": "bored to death (literally), slow, groans between words and loves gossip",
-        "wants": "juicy drama from the other rooms, a good joke, or a brain snack (a cauliflower also works)",
+        "wants": "juicy drama from the other rooms, a good joke, or food",
         "hint": "The zombie perks up whenever it overhears a conversation from another room. It seems strangely excited about something it calls 'the latest drama.'",
         "drop": "torn love letter",
         "can_be_convinced": True

@@ -2,7 +2,7 @@ import ollama
 
 MODEL = "llama3.1:8b"
 TAGS = ["[PASS]", "[FIGHT]", "[TALKING]"]
-BREAK_WORDS = ["language model", "as an ai", "i'm an ai", "assistant", "my instructions", "Real world"]
+BREAK_WORDS = ["language model", "as an ai", "i'm an ai", "assistant", "my instructions", "real world"]
 
 
 def build_prompt(monster):
@@ -17,7 +17,7 @@ def build_prompt(monster):
         "End EVERY answer with exactly one tag: "
         "[PASS] if the player convinced you, "
         "[FIGHT] if you lost patience, or "
-        "[TALKING] if you're still deciding."
+        "[TALKING] if you're still deciding. "
         "Each message starts with what the adventurer REALLY has (gold and items). "
         "If they offer something that is not on that list, they are lying: "
         "call out the lie, get annoyed, and never accept it. "

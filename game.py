@@ -100,6 +100,7 @@ def fight(hero, monster):
 # Monsters can talk too
 
 def talk(hero, monster):
+    print(f"{monster.get('hint')}")
     print(f"You have three chances to convince the {monster['name']}.")
     chat = [{"role": "system", "content": ai.build_prompt(monster)}]
     for turn in range(3):
@@ -254,4 +255,11 @@ def main():
 #-------------------------------------------------------
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()
+        again = ask("Do you want to play again? (yes/no)", ["yes", "no"])
+        if again.lower() == "no":
+            print("have a nice day adventurer!")
+            break
+
+

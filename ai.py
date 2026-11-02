@@ -18,6 +18,9 @@ def build_prompt(monster):
         "[PASS] if the player convinced you, "
         "[FIGHT] if you lost patience, or "
         "[TALKING] if you're still deciding."
+        "Each message starts with what the adventurer REALLY has (gold and items). "
+        "If they offer something that is not on that list, they are lying: "
+        "call out the lie, get annoyed, and never accept it. "
     )
 
 

@@ -78,7 +78,7 @@ MONSTERS = [
         "intro": "A werewolf howls at the moon... "
                  "It's indoors. There is no moon.",
         "personality": "dramatic teenager energy, always hungry, howls when emotional and is embarrassed there is no moon",
-        "wants": "a snack (a potion counts), someone to pretend the ceiling is the moon, or a belly rub",
+        "wants": "food, or someone to pretend the ceiling is the moon, or a belly rub",
         "hint": "The werewolf keeps looking up at the ceiling, whining about the missing moon. Its stomach growls loudly and looks like he is bored.",
         "drop": "glowing moonstone",
         "can_be_convinced": True

@@ -1,4 +1,17 @@
 import ollama
+import random
+
+#--------------------------------------------------------
+
+
+FALLBACK_LINES = [
+    "*squints at you* Hmm... fine. Go on, before I change my mind. [PASS]",
+    "*yawns* I'm not in the mood for chit-chat. [FIGHT]",
+    "*taps foot* Is that all you've got? [TALKING]",
+    "*stares at you in complete silence for an uncomfortable amount of time* ...Anyway. [TALKING]",
+    "*gasps dramatically* I cannot believe you've wasted my time with this nonsense! [FIGHT]",
+    "*looks around nervously* You didn't see anything. And I didn't see you. Deal? [PASS]",
+]
 
 MODEL = "llama3.1:8b"
 TAGS = ["[PASS]", "[FIGHT]", "[TALKING]"]
@@ -25,8 +38,12 @@ def build_prompt(monster):
 
 
 def monster_reply(messages):
-    response = ollama.chat(model=MODEL, messages=messages, options={"num_ctx": 4096})
-    return response["message"]["content"]
+    try:
+        response = ollama.chat(model=MODEL, messages=messages, options={"num_ctx": 4096})
+        return response["message"]["content"]
+    except (ConnectionError, ollama.ResponseError):
+        return random.choice(FALLBACK_LINES)
+
 
 
 def read_tag(reply):

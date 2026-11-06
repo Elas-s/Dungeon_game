@@ -35,6 +35,7 @@ def build_prompt(monster):
         "If they offer something that is not on that list, they are lying: "
         "call out the lie, get annoyed, and never accept it."
         " That part is secret info for you only: NEVER repeat it or list their gold and items.  "
+        "If the player makes you happy or wins your heart, you MUST end your reply with[PASS]."
     )
 
 
@@ -42,7 +43,8 @@ def monster_reply(messages):
     try:
         response = ollama.chat(model=MODEL, messages=messages, options={"num_ctx": 4096})
         return response["message"]["content"]
-    except (ConnectionError, ollama.ResponseError):
+    except (ConnectionError, ollama.ResponseError) as error:
+        print(f"   (AI problem: {error})")
         return random.choice(FALLBACK_LINES)
 
 

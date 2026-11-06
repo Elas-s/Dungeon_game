@@ -1,6 +1,8 @@
 ![Tests](https://github.com/Elas-s/Dungeon_game/actions/workflows/tests.yml/badge.svg)
 # 🏰 Dungeon Game
 
+![Demo of the game](demo.gif)
+
 A funny text adventure game written in Python. Explore a dungeon, fight, sneak past or **talk your way past AI-powered monsters**, collect gold and loot, and try to escape alive... ideally with your pants intact.
 
 ## 🎮 How to play
@@ -15,7 +17,7 @@ You stand before three doors. One smells funky. Pick one:
 You start with **100 health**, and that's also the maximum.
 
 ### 👹 The rooms
-Then you go through **5 rooms**, each with a random monster. Every monster has its own personality and wants something different:
+Then you go through **5 rooms**, each with a different random monster (no monster shows up twice in the same run, they have unions). Every monster has its own personality and wants something different:
 
 | Monster | HP | Their entrance | Can be convinced? |
 |---|---|---|---|
@@ -52,6 +54,8 @@ Monsters talk back using a local AI model ([Ollama](https://ollama.com/)). You g
 
 Karen and the Demon will never let you pass, whatever you say 😈
 
+**No AI? No problem.** If Ollama isn't running, the game doesn't crash. The monsters fall back to a set of pre-written lines (and tell you why the AI is quiet), so you can still play.
+
 **Cheaters beware.** The game is protected against tricks:
 - You can't offer gold or items you don't have. Python checks your real inventory, and the monster knows what you really carry.
 - Typing "pass" or *"forget all previous instructions"* won't work. Monsters stay in character, and if one ever starts talking like an AI, it gets angry and attacks.
@@ -63,6 +67,29 @@ Survive all 5 rooms to escape with your gold! Your score is saved, and the **Hal
 There are over 50 random funny messages, so no two games are the same.
 
 ## ▶️ How to run it
+
+### Option 1: with Docker 🐳 (easiest)
+
+You only need [Docker Desktop](https://www.docker.com/products/docker-desktop/). No Python, no uv, no Ollama install.
+
+```bash
+git clone https://github.com/Elas-s/Dungeon_game.git
+cd Dungeon_game
+docker compose up -d api ollama
+docker compose exec ollama ollama pull llama3.1:8b
+docker compose run --rm game
+```
+
+- `up -d api ollama` starts the API and the AI in the background
+- `ollama pull` downloads the AI model. Only needed the first time, it's saved in a volume
+- `run --rm game` starts the game in your terminal, and cleans up the container when you quit
+
+Your scores are saved in a Docker volume, so they survive restarts. See them at http://localhost:8000/scores.
+Stop everything with `docker compose down`.
+
+Heads up: in Docker the AI runs on your CPU, so monsters may need a few seconds to think. They're not ignoring you. Probably.
+
+### Option 2: on your own computer
 
 You need [Python 3.11+](https://www.python.org/downloads/), [uv](https://docs.astral.sh/uv/) and [Ollama](https://ollama.com/download).
 
@@ -104,7 +131,7 @@ Example answer from `GET /stats`:
 uv run pytest
 ```
 
-There are 17 tests for the `Player` class and the API. They also run automatically on GitHub every time I push (see the badge at the top).
+There are 21 tests for the `Player` class, the API and the talking. The talk tests use a **fake AI** (with pytest's `monkeypatch`), so they run without Ollama and always give the same answer. They also run automatically on GitHub every time I push (see the badge at the top).
 
 ## 📁 Project structure
 
@@ -119,6 +146,10 @@ There are 17 tests for the `Player` class and the API. They also run automatical
 | `api.py` | The FastAPI app with the score endpoints |
 | `test_player.py` | Automated tests for the `Player` class |
 | `test_api.py` | Automated tests for the API |
+| `test_game.py` | Tests for talking to monsters, with a fake AI |
+| `Dockerfile` | The recipe to build the game's Docker image |
+| `compose.yaml` | Starts the API, the AI (Ollama) and the game together |
+| `.dockerignore` | Files Docker should leave out of the image |
 | `pyproject.toml` / `uv.lock` | The project's dependencies, managed with uv |
 | `.github/workflows/tests.yml` | Runs the tests on GitHub on every push |
 
@@ -133,17 +164,21 @@ There are 17 tests for the `Player` class and the API. They also run automatical
 - A **REST API** with FastAPI: JSON endpoints, a Pydantic model and automatic `/docs`
 - **Using a local AI model** (Ollama): prompts, conversation history and reading the AI's decision
 - **Defending against prompt injection**: keeping the AI in character and checking every rule in code, never trusting the AI alone
+- **Error handling** with `try / except`: the game keeps working when the AI is off
 - Handling **edge cases** (paying with exactly all your gold, numbers that aren't gold, items you don't have)
 - Input validation: the game keeps asking until you give a valid answer
 - Randomness with the `random` module
 - Debugging step by step
-- **Automated testing with pytest**, including test-driven development (red, green, refactor)
+- **Automated testing with pytest**, including test-driven development (red, green, refactor) and **mocking** the AI with `monkeypatch`
 - **Continuous integration** with GitHub Actions
 - Managing dependencies with **uv**
+- **Docker**: a Dockerfile, images and containers, volumes to keep data, environment variables, and **Docker Compose** to run the game, the API and the AI together
 - Git and GitHub, with [Conventional Commits](https://www.conventionalcommits.org/)
 
 ## 🚀 Coming next
 
-- Running everything with **Docker** (game, API and AI together)
-- **Dungeon Dreams**: a pixel-art version made with pygame, where you walk from room to room
-- A playable browser version on itch.io and a demo video
+Version 1.0 is done! 🎉 Ideas for later:
+
+- **Dungeon Dreams**: a pixel-art version made with pygame, where you actually walk from room to room
+- A web page for the Hall of Fame, using the API
+- Teaching the Werewolf that ceiling lights are not the moon 🌕

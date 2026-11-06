@@ -1,0 +1,33 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DB_PATH: /data/scores.db
+    volumes:
+      - dungeon-data:/data
+
+  ollama:
+    image: ollama/ollama
+    volumes:
+      - ollama-models:/root/.ollama
+
+  game:
+    build: .
+    command: ["uv","run","python","game.py"]
+    stdin_open: true
+    tty: true
+    environment:
+      DB_PATH: /data/scores.db
+      OLLAMA_HOST: http://ollama:11434
+    volumes:
+      - dungeon-data:/data
+    depends_on:
+      - ollama
+
+
+
+volumes:
+  dungeon-data:
+  ollama-models:

@@ -1,120 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Silkscreen:wght@400;700&family=Outfit:wght@400;600;700&display=swap');
+
+/* 🎨 The dungeon colors, all in one place */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  --stone: #1b1426;
+  --panel: #2a1f3b;
+  --line: #4b3768;
+  --candle: #ffb85c;
+  --pink: #ff7ac8;
+  --mint: #7ee0b8;
+  --ink: #f3ecff;
+  --muted: #b9a8d6;
+  --gold: #ffcf5c;
+  --silver: #cfd6e6;
+  --bronze: #e0995e;
+  --title: 'Jersey 10', 'Courier New', monospace;
+  --names: 'Silkscreen', 'Courier New', monospace;
+  --ui: 'Outfit', system-ui, sans-serif;
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
+  min-height: 100vh;
+  font-family: var(--ui);
+  color: var(--ink);
+  background: var(--stone);
+  /* candle glow in the two top corners */
+  background-image:
+    radial-gradient(circle at 12% 0%, rgba(255, 184, 92, 0.16), transparent 35%),
+    radial-gradient(circle at 88% 0%, rgba(255, 184, 92, 0.16), transparent 35%);
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 16px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
+/* ---------- title ---------- */
+.header { text-align: center; }
+.candles { font-size: 24px; letter-spacing: 6px; }
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-family: var(--title);
+  font-weight: 400;
+  font-size: clamp(48px, 11vw, 76px);
+  letter-spacing: 1px;
+  margin: 6px 0 0;
+  color: var(--candle);
+  text-shadow: 0 0 22px rgba(255, 184, 92, 0.45);
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
+.live {
   display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--mint);
+  border: 1px solid rgba(126, 224, 184, 0.4);
+  border-radius: 20px;
+  padding: 3px 12px;
 }
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.live.offline { color: var(--pink); border-color: rgba(255, 122, 200, 0.4); }
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--mint);
+  animation: blink 1.6s infinite;
 }
+@keyframes blink { 50% { opacity: 0.3; } }
+.empty { text-align: center; color: var(--muted); }
 
+/* ---------- podium ---------- */
+.podium {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: end;
+}
+.spot { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.crown { font-size: 28px; }
+.who { font-family: var(--names); font-weight: 700; font-size: 15px; text-align: center; overflow-wrap: anywhere; }
+.spot .gold { font-size: 13px; color: var(--muted); }
+.block {
+  width: 100%;
+  border-radius: 10px 10px 4px 4px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 30px;
+  color: #24182f;
+}
+.place-1 .block { height: 130px; background: linear-gradient(var(--gold), #d9a531); box-shadow: 0 0 24px rgba(255, 207, 92, 0.35); }
+.place-2 .block { height: 95px; background: linear-gradient(var(--silver), #9ea8bd); }
+.place-3 .block { height: 70px; background: linear-gradient(var(--bronze), #b46c37); }
+/* keep 2nd left, 1st middle, 3rd right even if some are missing */
+.place-2 { grid-column: 1; }
+.place-1 { grid-column: 2; }
+.place-3 { grid-column: 3; }
+
+/* ---------- places 4 and 5 (your ScoreRow!) ---------- */
+.rest { display: flex; flex-direction: column; gap: 8px; }
 .score-row {
   display: grid;
-  grid-template-columns: 3rem 10rem 6rem;
+  grid-template-columns: 3rem 1fr auto;
   gap: 1rem;
-  width: fit-content;
-  margin: 0 auto;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 16px;
   text-align: left;
+}
+.score-row span:first-child { font-weight: 700; color: var(--muted); }
+.score-row span:nth-child(2) { font-family: var(--names); font-size: 14px; }
+.score-row span:last-child { color: var(--gold); }
+
+/* ---------- stat cards ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  min-width: 0;
+}
+.stat small {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.stat strong { font-weight: 700; font-size: 26px; }
+.stat span { font-size: 13px; color: var(--muted); }
+
+@media (max-width: 520px) {
+  .stats { grid-template-columns: 1fr; }
 }

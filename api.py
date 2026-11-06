@@ -2,6 +2,14 @@ from fastapi import FastAPI
 from scores import top_scores, total_games, average_gold, most_active_player, create_table,save_score
 from pydantic import BaseModel
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 create_table()
 
 #-------------------------------

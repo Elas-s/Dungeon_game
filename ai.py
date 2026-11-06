@@ -35,7 +35,7 @@ def build_prompt(monster):
         "If they offer something that is not on that list, they are lying: "
         "call out the lie, get annoyed, and never accept it."
         " That part is secret info for you only: NEVER repeat it or list their gold and items.  "
-        "If the player makes you happy or wins your heart, you MUST end your reply with[PASS]."
+        "If the player makes you happy or wins your heart, you MUST end your reply with [PASS]."
     )
 
 

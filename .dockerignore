@@ -4,3 +4,4 @@
 __pycache__
 .pytest_cache
 scores.db
+frontend/node_modules
